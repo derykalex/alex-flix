@@ -33,7 +33,7 @@
         </form>
 
         <p class="text-center text-xs text-gray-500 mt-6">
-            Protegido com criptografia de ponta a ponta. <br>Dica de teste: Use qualquer e-mail e senha.
+            Plataforma segura e criptografada. <br>Dica: Digite qualquer e-mail e senha para prosseguir.
         </p>
     </div>
 
@@ -41,10 +41,8 @@
         function handleLogin(event) {
             event.preventDefault();
             const username = document.getElementById('login-user').value;
-            // Salva o status de autenticação principal
             localStorage.setItem('alex_flix_auth', 'true');
             localStorage.setItem('alex_flix_account_owner', username);
-            // Redireciona para a tela de escolha/gerenciamento de perfis
             window.location.href = 'perfis.html';
         }
     </script>

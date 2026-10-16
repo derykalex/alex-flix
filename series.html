@@ -23,9 +23,9 @@
                 <a href="minha-lista.html" class="text-red-500 hover:text-red-400 transition">Minha Lista (<span id="list-count">0</span>)</a>
             </nav>
         </div>
-        <div class="flex items-center space-x-3 bg-black/40 px-3.5 py-1.5 rounded-full border border-gray-800">
+        <div onclick="window.location.href='perfis.html'" class="flex items-center space-x-3 bg-black/40 px-3.5 py-1.5 rounded-full border border-gray-800 cursor-pointer hover:border-gray-600 transition" title="Trocar de Perfil">
             <div class="w-7 h-7 bg-red-600 rounded-full flex items-center justify-center font-bold text-xs text-white">A</div>
-            <span class="text-sm font-semibold text-white">Alex</span>
+            <span id="current-profile-name" class="text-sm font-semibold text-white">Alex</span>
         </div>
     </header>
 
@@ -34,7 +34,7 @@
         <div id="grid-series" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
     </main>
 
-    <!-- MODAL DE PLAYER -->
+    <!-- MODAL PLAYER -->
     <div id="player-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-4">
         <div class="w-full max-w-5xl bg-[#111318] rounded-2xl overflow-hidden border border-gray-800 shadow-2xl relative">
             <button onclick="closePlayer()" class="absolute top-5 right-5 z-25 bg-black/70 hover:bg-red-600 text-white w-11 h-11 rounded-full flex items-center justify-center transition border border-gray-700"><i class="fa-solid fa-xmark text-xl"></i></button>
@@ -52,7 +52,6 @@
     <script src="script.js"></script>
     <script>
         renderGrid('grid-series', catalog.filter(i => i.category === 'serie'));
-        updateListCount();
     </script>
 </body>
 </html>

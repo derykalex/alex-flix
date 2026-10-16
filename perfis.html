@@ -18,19 +18,17 @@
         <p class="text-gray-400 text-lg font-medium">Quem está assistindo?</p>
     </div>
 
-    <!-- Grade Dinâmica de Perfis -->
     <div id="profiles-container" class="flex flex-wrap justify-center gap-6 max-w-4xl mb-10">
         <!-- Renderizado via JavaScript -->
     </div>
 
-    <!-- Botão para Adicionar Novo Perfil -->
-    <button onclick="openAddProfileModal()" class="flex items-center space-x-2 text-gray-400 hover:text-white bg-gray-900/80 hover:bg-gray-800 px-6 py-3 rounded-xl border border-gray-800 transition">
+    <button onclick="openAddProfileModal()" class="flex items-center space-x-2 text-gray-400 hover:text-white bg-gray-900/80 hover:bg-gray-800 px-6 py-3 rounded-xl border border-gray-800 transition shadow">
         <i class="fa-solid fa-user-plus"></i>
         <span class="font-semibold text-sm">Adicionar Perfil</span>
     </button>
 
-    <!-- Modal para Criar Novo Perfil -->
-    <div id="profile-modal" class="fixed inset-0 bg-black/9ul0 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <!-- Modal Adicionar Perfil -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
         <div class="w-full max-w-md bg-[#111318] p-6 rounded-2xl border border-gray-800 shadow-2xl relative">
             <h3 class="text-xl font-bold mb-4 text-white">Criar Novo Perfil</h3>
             <form onsubmit="saveNewProfile(event)" class="space-y-4">
@@ -47,7 +45,6 @@
     </div>
 
     <script>
-        // Perfis padrão iniciais caso o usuário não tenha criado outros
         let profiles = JSON.parse(localStorage.getItem('alex_flix_profiles')) || [
             { name: 'Alex', color: 'from-red-600 to-purple-800' },
             { name: 'Convidado', color: 'from-gray-700 to-gray-900' }
@@ -57,7 +54,7 @@
             const container = document.getElementById('profiles-container');
             container.innerHTML = '';
             
-            profiles.forEach((profile, index) => {
+            profiles.forEach((profile) => {
                 const card = document.createElement('div');
                 card.className = 'group text-center cursor-pointer';
                 card.onclick = () => selectProfile(profile.name);
