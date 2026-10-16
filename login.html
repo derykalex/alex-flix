@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Flix — Entrar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #07080a; color: #f3f4f6; }
+    </style>
+</head>
+<body class="bg-[#07080a] min-h-screen flex items-center justify-center px-4">
+    <div class="w-full max-w-md bg-[#111318] p-8 rounded-2xl border border-gray-800 shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-black text-red-600 tracking-wider mb-2">ALEX FLIX</h1>
+            <p class="text-gray-400 text-sm">Acesse sua conta para continuar</p>
+        </div>
+
+        <form onsubmit="handleLogin(event)" class="space-y-6">
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">E-mail ou Usuário</label>
+                <input type="text" id="login-user" required placeholder="Ex: alex@email.com" class="w-full bg-black/60 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-red-600">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Senha</label>
+                <input type="password" id="login-pass" required placeholder="••••••••" class="w-full bg-black/60 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-red-600">
+            </div>
+            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg">
+                Entrar na Conta
+            </button>
+        </form>
+
+        <p class="text-center text-xs text-gray-500 mt-6">
+            Protegido com criptografia de ponta a ponta. <br>Dica de teste: Use qualquer e-mail e senha.
+        </p>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-user').value;
+            // Salva o status de autenticação principal
+            localStorage.setItem('alex_flix_auth', 'true');
+            localStorage.setItem('alex_flix_account_owner', username);
+            // Redireciona para a tela de escolha/gerenciamento de perfis
+            window.location.href = 'perfis.html';
+        }
+    </script>
+</body>
+</html>
