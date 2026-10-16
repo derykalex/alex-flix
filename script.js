@@ -1,9 +1,7 @@
-// Verifica o perfil ativo atual
 function getActiveProfile() {
     return localStorage.getItem('alex_flix_current_profile') || 'Alex';
 }
 
-// Carregar o nome do perfil ativo na barra superior
 document.addEventListener('DOMContentLoaded', () => {
     const activeProfile = getActiveProfile();
     const profileBadges = document.querySelectorAll('#current-profile-name');
@@ -27,7 +25,6 @@ const catalog = [
     { title: 'Stranger Things', category: 'serie', type: 'Série • Suspense', img: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80', desc: 'Mistérios paranormais e conexões sombrias com o Mundo Invertido.' }
 ];
 
-// Retorna a lista de favoritos específica do perfil logado no momento
 function getMyListKey() {
     return 'alex_flix_list_' + getActiveProfile();
 }
@@ -90,7 +87,7 @@ function renderMyListPage() {
     if (!container) return;
     container.innerHTML = '';
     if(myList.length === 0) {
-        container.innerHTML = `<p class="text-gray-400 col-span-full text-center py-20 text-lg">A lista do perfil <b>${getActiveProfile()}</b> está vazia.</p>`;
+        container.innerHTML = `<p class="text-gray-400 col-span-full text-center py-20 text-lg">A lista do perfil <b>${getActiveProfile()}</b> está vazia. Adicione seus favoritos clicando no "+" nos cards!</p>`;
         return;
     }
     myList.forEach(item => {
@@ -161,10 +158,6 @@ function handleSearch(event) {
             alert('Nenhum título encontrado com esse nome.');
         }
     }
-}
-
-function showSectionAlert(sectionName) {
-    alert(`A seção de "${sectionName}" do perfil ${getActiveProfile()} está sendo sincronizada.`);
 }
 
 function toggleProfileMenu(event) {
