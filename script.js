@@ -1,9 +1,11 @@
-if (!localStorage.getItem('alex_flix_auth')) {
-    window.location.href = 'login.html';
+// Verifica o perfil ativo atual
+function getActiveProfile() {
+    return localStorage.getItem('alex_flix_current_profile') || 'Alex';
 }
 
+// Carregar o nome do perfil ativo na barra superior
 document.addEventListener('DOMContentLoaded', () => {
-    const activeProfile = localStorage.getItem('alex_flix_current_profile') || 'Alex';
+    const activeProfile = getActiveProfile();
     const profileBadges = document.querySelectorAll('#current-profile-name');
     profileBadges.forEach(el => el.innerText = activeProfile);
     updateListCount();
@@ -25,7 +27,12 @@ const catalog = [
     { title: 'Stranger Things', category: 'serie', type: 'Série • Suspense', img: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80', desc: 'Mistérios paranormais e conexões sombrias com o Mundo Invertido.' }
 ];
 
-let myList = JSON.parse(localStorage.getItem('alex_flix_list')) || [];
+// Retorna a lista de favoritos específica do perfil logado no momento
+function getMyListKey() {
+    return 'alex_flix_list_' + getActiveProfile();
+}
+
+let myList = JSON.parse(localStorage.getItem(getMyListKey())) || [];
 
 function renderRow(containerId, items) {
     const container = document.getElementById(containerId);
@@ -78,11 +85,12 @@ function renderGrid(containerId, items) {
 }
 
 function renderMyListPage() {
+    myList = JSON.parse(localStorage.getItem(getMyListKey())) || [];
     const container = document.getElementById('grid-mylist');
     if (!container) return;
     container.innerHTML = '';
     if(myList.length === 0) {
-        container.innerHTML = '<p class="text-gray-400 col-span-full text-center py-20 text-lg">Sua lista está vazia. Adicione seus favoritos clicando no ícone de "+" nos cards!</p>';
+        container.innerHTML = `<p class="text-gray-400 col-span-full text-center py-20 text-lg">A lista do perfil <b>${getActiveProfile()}</b> está vazia.</p>`;
         return;
     }
     myList.forEach(item => {
@@ -119,6 +127,7 @@ function closePlayer() {
 }
 
 function toggleMyList(title) {
+    myList = JSON.parse(localStorage.getItem(getMyListKey())) || [];
     const index = myList.findIndex(item => item.title === title);
     if(index > -1) {
         myList.splice(index, 1);
@@ -126,16 +135,18 @@ function toggleMyList(title) {
         const item = catalog.find(m => m.title === title);
         if(item) myList.push(item);
     }
-    localStorage.setItem('alex_flix_list', JSON.stringify(myList));
+    localStorage.setItem(getMyListKey(), JSON.stringify(myList));
     updateListCount();
     if(document.getElementById('grid-mylist')) renderMyListPage();
 }
 
 function isBookmarked(title) {
+    myList = JSON.parse(localStorage.getItem(getMyListKey())) || [];
     return myList.some(item => item.title === title);
 }
 
 function updateListCount() {
+    myList = JSON.parse(localStorage.getItem(getMyListKey())) || [];
     const badges = document.querySelectorAll('#list-count');
     badges.forEach(b => b.innerText = myList.length);
 }
@@ -153,10 +164,9 @@ function handleSearch(event) {
 }
 
 function showSectionAlert(sectionName) {
-    alert(`A seção de "${sectionName}" do perfil está sendo sincronizada com a sua conta.`);
+    alert(`A seção de "${sectionName}" do perfil ${getActiveProfile()} está sendo sincronizada.`);
 }
 
-// Lógica do menu de perfil interativo por clique
 function toggleProfileMenu(event) {
     event.stopPropagation();
     const dropdown = document.getElementById('profile-dropdown');
