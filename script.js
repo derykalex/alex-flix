@@ -1,9 +1,7 @@
-// Verificação de Segurança de Sessão (Exige Login)
 if (!localStorage.getItem('alex_flix_auth')) {
     window.location.href = 'login.html';
 }
 
-// Exibir o nome do perfil ativo na barra superior ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
     const activeProfile = localStorage.getItem('alex_flix_current_profile') || 'Alex';
     const profileBadges = document.querySelectorAll('#current-profile-name');
@@ -153,3 +151,23 @@ function handleSearch(event) {
         }
     }
 }
+
+function showSectionAlert(sectionName) {
+    alert(`A seção de "${sectionName}" do perfil está sendo sincronizada com a sua conta.`);
+}
+
+// Lógica do menu de perfil interativo por clique
+function toggleProfileMenu(event) {
+    event.stopPropagation();
+    const dropdown = document.getElementById('profile-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('hidden');
+    }
+}
+
+window.addEventListener('click', () => {
+    const dropdown = document.getElementById('profile-dropdown');
+    if (dropdown && !dropdown.classList.contains('hidden')) {
+        dropdown.classList.add('hidden');
+    }
+});
