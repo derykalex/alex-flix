@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Flix - Seus Animes, Filmes e Séries</title>
+    <!-- Tailwind CSS para estilização rápida e moderna -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f1015;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-[#0f1015] min-h-screen flex flex-col">
+
+    <!-- TELA DE SELEÇÃO DE PERFIL -->
+    <div id="profile-screen" class="fixed inset-0 bg-[#0b0c10] z-50 flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-black text-red-600 tracking-wider mb-2">ALEX FLIX</h1>
+            <p class="text-gray-400 text-lg">Quem está assistindo?</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6 cursor-pointer">
+            <div onclick="selectProfile('Alex')" class="group text-center">
+                <div class="w-28 h-28 md:w-36 md:h-36 rounded-xl overflow-hidden border-4 border-transparent group-hover:border-red-600 transition-all shadow-2xl relative bg-gradient-to-br from-red-600 to-purple-800 flex items-center justify-center text-4xl font-bold">
+                    A
+                </div>
+                <span class="block mt-3 text-gray-300 group-hover:text-white font-medium text-lg">Alex</span>
+            </div>
+            <div onclick="selectProfile('Convidado')" class="group text-center">
+                <div class="w-28 h-28 md:w-36 md:h-36 rounded-xl overflow-hidden border-4 border-transparent group-hover:border-gray-400 transition-all shadow-2xl relative bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-4xl font-bold">
+                    <i class="fa-solid fa-user-plus text-gray-400"></i>
+                </div>
+                <span class="block mt-3 text-gray-400 group-hover:text-white font-medium text-lg">Convidado</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR PRINCIPAL -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-gradient-to-b from-[#0f1015] via-[#0f1015]/80 to-transparent px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-8">
+            <h2 class="text-2xl font-black text-red-600 tracking-wider cursor-pointer" onclick="filterCategory('all')">ALEX FLIX</h2>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-gray-300">
+                <a href="#" onclick="filterCategory('all')" class="hover:text-white text-white">Início</a>
+                <a href="#catalogo" onclick="filterCategory('anime')" class="hover:text-white">Animes</a>
+                <a href="#catalogo" onclick="filterCategory('filme')" class="hover:text-white">Filmes</a>
+                <a href="#catalogo" onclick="filterCategory('serie')" class="hover:text-white">Séries</a>
+                <a href="#catalogo" onclick="showMyList()" class="hover:text-white text-red-400 font-semibold">Minha Lista (<span id="list-count">0</span>)</a>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-4">
+            <!-- BARRA DE PESQUISA EM TEMPO REAL -->
+            <div class="relative hidden sm:block">
+                <input type="text" id="search-input" onkeyup="searchMedia()" placeholder="Buscar título..." class="bg-gray-800 text-sm text-white px-4 py-1.5 rounded-full pl-10 focus:outline-none focus:ring-2 focus:ring-red-600 border border-gray-700 w-48 md:w-64 transition-all">
+                <i class="fa-solid fa-search absolute left-3.5 top-2.5 text-gray-400 text-xs"></i>
+            </div>
+            <div class="flex items-center space-x-2 bg-gray-800 px-3 py-1.5 rounded-full border border-gray-700">
+                <div class="w-7 h-7 bg-red-600 rounded-full flex items-center justify-center font-bold text-sm">A</div>
+                <span id="current-user" class="text-sm font-medium text-white hidden sm:inline">Alex</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="flex-grow pb-16">
+        <!-- BANNER DE DESTAQUE -->
+        <section class="relative h-[70vh] md:h-[80vh] flex items-center px-6 md:px-12 bg-cover bg-center" style="background-image: linear-gradient(to top, #0f1015, rgba(15,16,21,0.4), rgba(15,16,21,0.8)), url('https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80')">
+            <div class="max-w-2xl z-10 mt-20">
+                <span class="bg-red-600 text-xs font-bold px-3 py-1 rounded uppercase tracking-wider mb-3 inline-block">Destaque da Semana</span>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Overlord: O Retorno do Rei</h1>
+                <p class="text-gray-300 text-sm md:text-base mb-6 line-clamp-3">Acompanhe as táticas supremas de Momonga e sua guilda em um mundo fantástico repleto de mistérios, magia e batalhas épicas.</p>
+                <div class="flex space-x-4">
+                    <button onclick="openPlayer('Overlord', 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1600&q=80', 'Acompanhe as táticas supremas de Momonga...')" class="bg-white text-black font-bold px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-200 transition">
+                        <i class="fa-solid fa-play"></i>
+                        <span>Assistir Agora</span>
+                    </button>
+                    <button onclick="addToMyList('Overlord', 'anime', 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80')" class="bg-gray-800/80 backdrop-blur text-white font-bold px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-gray-700 transition border border-gray-600">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Minha Lista</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE CATÁLOGO / GRADE DE CARDS -->
+        <section id="catalogo" class="px-6 md:px-12 mt-10">
+            <div class="flex items-center justify-between mb-6">
+                <h3 id="section-title" class="text-2xl font-bold flex items-center"><i class="fa-solid fa-fire text-red-500 mr-2"></i> Catálogo Completo</h3>
+                <div class="flex space-x-2 text-sm">
+                    <button onclick="filterCategory('all')" class="px-3 py-1 bg-red-600 rounded-md font-medium transition">Todos</button>
+                    <button onclick="filterCategory('anime')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-md font-medium transition">Animes</button>
+                    <button onclick="filterCategory('filme')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-md font-medium transition">Filmes</button>
+                    <button onclick="filterCategory('serie')" class="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-md font-medium transition">Séries</button>
+                </div>
+            </div>
+
+            <!-- GRID DINÂMICA DE MÍDIA -->
+            <div id="media-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- Os cards serão injetados dinamicamente via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DE PLAYER DE VÍDEO -->
+    <div id="player-modal" class="fixed inset-0 bg-black/90 z-50 hidden flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-4xl bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 shadow-2xl relative">
+            <button onclick="closePlayer()" class="absolute top-4 right-4 z-10 bg-black/60 hover:bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="relative h-64 md:h-[400px] bg-black flex items-center justify-center">
+                <img id="modal-img" src="" alt="" class="absolute inset-0 w-full h-full object-cover opacity-50">
+                <div class="z-10 text-center">
+                    <button class="w-20 h-20 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center text-3xl shadow-lg transition transform hover:scale-110">
+                        <i class="fa-solid fa-play ml-1"></i>
+                    </button>
+                    <p id="modal-title" class="mt-4 text-xl font-bold text-white"></p>
+                </div>
+            </div>
+            <div class="p-6">
+                <p id="modal-desc" class="text-gray-300 text-sm mb-4"></p>
+                <h4 class="text-lg font-semibold mb-2">Episódios & Temporadas</h4>
+                <div class="flex space-x-3 overflow-x-auto pb-2">
+                    <button class="bg-red-600 px-4 py-2 rounded-lg text-sm font-medium">Episódio 1</button>
+                    <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm font-medium">Episódio 2</button>
+                    <button class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm font-medium">Episódio 3</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CONTROLE E DADOS -->
+    <script>
+        // Lista completa de mídias do Alex Flix
+        const mediaList = [
+            { title: 'Overlord', category: 'anime', type: 'Anime', img: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80', desc: 'Acompanhe as táticas supremas de Momonga e sua guilda em um mundo fantástico.' },
+            { title: 'Naruto Shippuden', category: 'anime', type: 'Anime • Ação', img: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80', desc: 'A jornada épica de Naruto para se tornar Hokage e salvar seus amigos.' },
+            { title: 'Demon Slayer', category: 'anime', type: 'Anime • Fantasia', img: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80', desc: 'Tanjiro luta contra demônios para salvar sua irmã Nezuko e vingar sua família.' },
+            { title: 'Jujutsu Kaisen', category: 'anime', type: 'Anime • Sobrenatural', img: 'https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80', desc: 'Feiticeiros modernos combatem maldições aterrorizantes em batalhas intensas.' },
+            { title: 'Cyberpunk: Edgerunners', category: 'serie', type: 'Série • Sci-Fi', img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80', desc: 'Um jovem mercenário tenta sobreviver nas ruas de Night City cheias de implantes cibernéticos.' },
+            { title: 'Interestelar', category: 'filme', type: 'Filme • Ficção Científica', img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80', desc: 'Exploradores viajam através de um buraco de minhoca em busca de um novo lar para a humanidade.' },
+            { title: 'Attack on Titan', category: 'anime', type: 'Anime • Ação', img: 'https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&w=600&q=80', desc: 'A humanidade luta pela sobrevivência dentro de muralhas contra gigantes devoradores.' }
+        ];
+
+        let myList = JSON.parse(localStorage.getItem('alex_flix_list')) || [];
+
+        function renderGrid(items) {
+            const grid = document.getElementById('media-grid');
+            grid.innerHTML = '';
+            
+            if(items.length === 0) {
+                grid.innerHTML = '<p class="text-gray-400 col-span-full text-center py-12">Nenhum título encontrado.</p>';
+                return;
+            }
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-gray-900 rounded-xl overflow-hidden group cursor-pointer transition transform hover:scale-105 border border-gray-800 relative';
+                card.innerHTML = `
+                    <div onclick="openPlayer('${item.title}', '${item.img}', '${item.desc}')" class="h-64 w-full relative overflow-hidden">
+                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover group-hover:opacity-80 transition">
+                    </div>
+                    <div class="p-3 flex items-center justify-between">
+                        <div>
+                            <h4 class="font-semibold text-sm truncate">${item.title}</h4>
+                            <p class="text-xs text-gray-400 mt-1">${item.type}</p>
+                        </div>
+                        <button onclick="event.stopPropagation(); toggleMyList('${item.title}')" class="text-gray-400 hover:text-red-500 text-lg transition">
+                            <i class="${isBookmarked(item.title) ? 'fa-solid fa-check text-red-500' : 'fa-solid fa-plus'}"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            updateListCount();
+        }
+
+        function selectProfile(name) {
+            document.getElementById('current-user').innerText = name;
+            const profileScreen = document.getElementById('profile-screen');
+            profileScreen.classList.add('opacity-0');
+            setTimeout(() => {
+                profileScreen.style.display = 'none';
+            }, 500);
+        }
+
+        function filterCategory(category) {
+            document.getElementById('section-title').innerHTML = `<i class="fa-solid fa-fire text-red-500 mr-2"></i> ${category === 'all' ? 'Catálogo Completo' : category.toUpperCase()}`;
+            if(category === 'all') {
+                renderGrid(mediaList);
+            } else {
+                const filtered = mediaList.filter(item => item.category === category);
+                renderGrid(filtered);
+            }
+        }
+
+        function searchMedia() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = mediaList.filter(item => item.title.toLowerCase().includes(query));
+            renderGrid(filtered);
+        }
+
+        function openPlayer(title, imgSrc, desc) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('player-modal').classList.remove('hidden');
+        }
+
+        function closePlayer() {
+            document.getElementById('player-modal').classList.add('hidden');
+        }
+
+        function addToMyList(title, category, img) {
+            if(!myList.some(item => item.title === title)) {
+                const found = mediaList.find(m => m.title === title) || { title, category, img, type: 'Favorito', desc: 'Adicionado à lista.' };
+                myList.push(found);
+                localStorage.setItem('alex_flix_list', JSON.stringify(myList));
+                alert(title + ' foi adicionado à sua lista!');
+                renderGrid(mediaList);
+            } else {
+                alert(title + ' já está na sua lista.');
+            }
+        }
+
+        function toggleMyList(title) {
+            const index = myList.findIndex(item => item.title === title);
+            if(index > -1) {
+                myList.splice(index, 1);
+                alert(title + ' foi removido da sua lista.');
+            } else {
+                const item = mediaList.find(m => m.title === title);
+                if(item) myList.push(item);
+                alert(title + ' foi adicionado à sua lista!');
+            }
+            localStorage.setItem('alex_flix_list', JSON.stringify(myList));
+            renderGrid(mediaList);
+        }
+
+        function isBookmarked(title) {
+            return myList.some(item => item.title === title);
+        }
+
+        function showMyList() {
+            document.getElementById('section-title').innerHTML = `<i class="fa-solid fa-bookmark text-red-500 mr-2"></i> Minha Lista`;
+            renderGrid(myList);
+        }
+
+        function updateListCount() {
+            document.getElementById('list-count').innerText = myList.length;
+        }
+
+        // Inicializar grade ao carregar a página
+        renderGrid(mediaList);
+    </script>
+</body>
+</html>
