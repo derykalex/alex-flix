@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Flix — Confirmar E-mail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #07080a; color: #f3f4f6; }
+    </style>
+</head>
+<body class="bg-[#07080a] min-h-screen flex items-center justify-center px-4">
+    <div class="w-full max-w-md bg-[#111318] p-8 rounded-3xl border border-gray-800 shadow-2xl text-center">
+        
+        <div class="w-16 h-16 bg-red-600/20 text-red-500 rounded-full flex items-center justify-center text-2xl mx-auto mb-4 border border-red-600/30">
+            <i class="fa-solid fa-envelope-circle-check"></i>
+        </div>
+
+        <h1 class="text-2xl font-black text-white tracking-wider mb-2">Confirme seu E-mail</h1>
+        <p class="text-gray-400 text-xs mb-6">Digite o código de 4 dígitos enviado para o seu e-mail de cadastro.</p>
+
+        <form onsubmit="validarCodigo(event)" class="space-y-6">
+            <div>
+                <input type="text" id="codigo-input" required maxlength="4" placeholder="0000" class="w-48 bg-black/60 border border-gray-700 rounded-2xl px-4 py-3 text-center text-white text-2xl font-black tracking-widest focus:outline-none focus:ring-2 focus:ring-red-600 mx-auto block">
+            </div>
+            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg">
+                Confirmar e Ativar Conta
+            </button>
+        </form>
+
+        <div class="mt-6">
+            <a href="login.html" class="text-xs text-gray-500 hover:text-gray-300 transition">&larr; Voltar ao login</a>
+        </div>
+    </div>
+
+    <script>
+        function validarCodigo(event) {
+            event.preventDefault();
+            const codigoDigitado = document.getElementById('codigo-input').value.trim();
+            const emailPendente = localStorage.getItem('alex_flix_email_pendente');
+
+            let clientes = JSON.parse(localStorage.getItem('alex_flix_base_clientes')) || {};
+            let cliente = clientes[emailPendente];
+
+            if (!cliente) {
+                alert('Erro na sessão. Faça o cadastro novamente.');
+                window.location.href = 'cadastro.html';
+                return;
+            }
+
+            if (cliente.codigo === codigoDigitado) {
+                cliente.verificado = true;
+                localStorage.setItem('alex_flix_base_clientes', JSON.stringify(clientes));
+                
+                alert('E-mail confirmado com sucesso! Seus 7 dias gratuitos foram ativados. Utilize a senha enviada no seu e-mail para entrar.');
+                window.location.href = 'login.html';
+            } else {
+                alert('Código incorreto. Verifique o código exibido no alerta de simulação anterior.');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -39,12 +39,14 @@
     </div>
 
     <script>
+        // Limpa qualquer sessão anterior ao abrir a tela de login para forçar a autenticação
+        localStorage.removeItem('alex_flix_auth');
+
         function handleLogin(event) {
             event.preventDefault();
             const email = document.getElementById('login-email').value.trim().toLowerCase();
             const senha = document.getElementById('login-pass').value;
 
-            // Suas credenciais mestre de Administrador (Acesso Gratuito Vitalício)
             const adminEmail = "derykalex@gmail.com";
             const adminSenha = "88594092aA@";
 
@@ -56,7 +58,6 @@
                 return;
             }
 
-            // Validação para os demais clientes (verificação de período de teste / assinatura)
             let clientes = JSON.parse(localStorage.getItem('alex_flix_base_clientes')) || {};
             
             if (!clientes[email]) {
