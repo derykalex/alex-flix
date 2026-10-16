@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Flix — Escolha seu Plano</title>
+    <title>Alex Flix — Planos e Teste Grátis</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,68 +15,66 @@
 
     <div class="text-center mb-12">
         <h1 class="text-4xl md:text-5xl font-black text-red-600 tracking-wider mb-3">ALEX FLIX</h1>
-        <p class="text-gray-400 text-lg">Desbloqueie acesso ilimitado a animes, filmes e séries em alta definição.</p>
+        <p class="text-gray-400 text-lg">Comece hoje. Cancele quando quiser. <span class="text-green-400 font-bold">7 dias grátis em todos os planos!</span></p>
     </div>
 
     <!-- Grade de Planos -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full mb-12">
         
-        <!-- Plano Mensal -->
+        <!-- Mensal (Com Recorrência / Pix Automático / Cartão) -->
         <div class="bg-[#111318] border border-gray-800 rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative">
             <div>
-                <span class="bg-gray-800 text-gray-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Básico</span>
+                <span class="bg-gray-800 text-gray-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Mensal Recorrente</span>
                 <h3 class="text-2xl font-bold text-white mt-4">Plano Mensal</h3>
-                <p class="text-gray-400 text-sm mt-1">Ideal para testar a plataforma.</p>
+                <p class="text-gray-400 text-sm mt-1">Cobrança mês a mês automatizada.</p>
                 <div class="my-6">
                     <span class="text-4xl font-black text-white">R$ 19,90</span>
                     <span class="text-gray-400 text-sm"> / mês</span>
                 </div>
                 <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Acesso total ao catálogo</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Até 4 perfis simultâneos</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Qualidade Full HD & 4K</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Sem anúncios</li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> <b>7 dias grátis</b> (sem cobrança hoje)</li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Acesso total ao catálogo 4K</li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Pix Automático ou Cartão</li>
                 </ul>
             </div>
-            <button onclick="assinarPlano('Plano Mensal', '19,90')" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 rounded-xl transition shadow-lg">
-                Assinar Mensal
+            <button onclick="escolherPlano('Plano Mensal', '19,90', 'mensal')" class="w-full bg-gray-800 hover:bg-gray-700 text-white font-bold py-4 rounded-xl transition shadow-lg">
+                Iniciar 7 Dias Grátis
             </button>
         </div>
 
-        <!-- Plano Anual (Destaque / Mais Vantajoso) -->
+        <!-- Anual (Mais Vantajoso) -->
         <div class="bg-[#111318] border-2 border-red-600 rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative transform md:-translate-y-2">
             <div class="absolute -top-4 right-8 bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-lg">
-                Mais Popular • 50% OFF
+                Melhor Custo-Benefício • 50% OFF
             </div>
             <div>
-                <span class="bg-red-600/20 text-red-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">VIP Premium</span>
+                <span class="bg-red-600/20 text-red-500 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Anual VIP</span>
                 <h3 class="text-2xl font-bold text-white mt-4">Plano Anual</h3>
-                <p class="text-gray-400 text-sm mt-1">Economize o ano todo com acesso ilimitado.</p>
+                <p class="text-gray-400 text-sm mt-1">Economize pagando uma vez por ano.</p>
                 <div class="my-6">
                     <span class="text-4xl font-black text-white">R$ 99,90</span>
                     <span class="text-gray-400 text-sm"> / ano</span>
                 </div>
                 <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Acesso total ao catálogo</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Até 4 perfis simultâneos</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Qualidade Full HD & 4K</li>
-                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Prioridade em novos lançamentos</li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-3"></i> <b>7 dias grátis</b> para testar</li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Acesso ilimitado e prioritário</li>
+                    <li class="flex items-center"><i class="fa-solid fa-check text-red-600 mr-3"></i> Cartão de Crédito ou Pix</li>
                 </ul>
             </div>
-            <button onclick="assinarPlano('Plano Anual', '99,90')" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl transition shadow-xl">
-                Assinar Anual via Pix
+            <button onclick="escolherPlano('Plano Anual', '99,90', 'anual')" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl transition shadow-xl">
+                Iniciar 7 Dias Grátis
             </button>
         </div>
 
     </div>
 
     <div class="text-center">
-        <a href="login.html" class="text-sm text-gray-400 hover:text-white transition">Já possui uma conta ativa? <span class="text-red-500 underline font-semibold">Fazer login</span></a>
+        <a href="login.html" class="text-sm text-gray-400 hover:text-white transition">Já é assinante? <span class="text-red-500 underline font-semibold">Fazer login</span></a>
     </div>
 
     <script>
-        function assinarPlano(nomePlano, valor) {
-            localStorage.setItem('alex_flix_plano_selecionado', JSON.stringify({ nome: nomePlano, preco: valor }));
+        function escolherPlano(nomePlano, valor, tipo) {
+            localStorage.setItem('alex_flix_plano_selecionado', JSON.stringify({ nome: nomePlano, preco: valor, tipo: tipo }));
             window.location.href = 'checkout.html';
         }
     </script>

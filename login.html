@@ -15,34 +15,68 @@
     <div class="w-full max-w-md bg-[#111318] p-8 rounded-2xl border border-gray-800 shadow-2xl">
         <div class="text-center mb-8">
             <h1 class="text-3xl font-black text-red-600 tracking-wider mb-2">ALEX FLIX</h1>
-            <p class="text-gray-400 text-sm">Acesse sua conta para continuar</p>
+            <p class="text-gray-400 text-sm">Entre ou teste por 7 dias grátis</p>
         </div>
 
         <form onsubmit="handleLogin(event)" class="space-y-6">
             <div>
-                <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">E-mail ou Usuário</label>
-                <input type="text" id="login-user" required placeholder="Ex: alex@email.com" class="w-full bg-black/60 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-red-600">
+                <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">E-mail</label>
+                <input type="email" id="login-email" required placeholder="seu@email.com" class="w-full bg-black/60 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-red-600">
             </div>
             <div>
                 <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Senha</label>
                 <input type="password" id="login-pass" required placeholder="••••••••" class="w-full bg-black/60 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-red-600">
             </div>
             <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg">
-                Entrar na Conta
+                Entrar na Plataforma
             </button>
         </form>
 
-        <p class="text-center text-xs text-gray-500 mt-6">
-            Plataforma segura. <br>Dica: Digite qualquer e-mail e senha para prosseguir.
-        </p>
+        <div class="mt-6 text-center">
+            <p class="text-xs text-gray-400">Não tem uma conta?</p>
+            <a href="planos.html" class="inline-block mt-2 text-sm text-red-500 hover:underline font-bold">Começar 7 Dias Grátis &rarr;</a>
+        </div>
     </div>
 
     <script>
         function handleLogin(event) {
             event.preventDefault();
-            const username = document.getElementById('login-user').value;
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const senha = document.getElementById('login-pass').value;
+
+            // Suas credenciais mestre de Administrador (Acesso Gratuito Vitalício)
+            const adminEmail = "derykalex@gmail.com";
+            const adminSenha = "88594092aA@";
+
+            if (email === adminEmail && senha === adminSenha) {
+                localStorage.setItem('alex_flix_auth', 'true');
+                localStorage.setItem('alex_flix_status_assinatura', 'ativo_admin');
+                localStorage.setItem('alex_flix_current_profile', 'Alex');
+                window.location.href = 'perfis.html';
+                return;
+            }
+
+            // Validação para os demais clientes (verificação de período de teste / assinatura)
+            let clientes = JSON.parse(localStorage.getItem('alex_flix_base_clientes')) || {};
+            
+            if (!clientes[email]) {
+                alert('E-mail não cadastrado ou sem assinatura ativa. Escolha um plano para iniciar seus 7 dias grátis!');
+                window.location.href = 'planos.html';
+                return;
+            }
+
+            let dadosCliente = clientes[email];
+            let hoje = new Date().getTime();
+
+            if (hoje > dadosCliente.expiraEm) {
+                alert('Seu período de teste expirou. Por favor, regularize sua assinatura.');
+                window.location.href = 'planos.html';
+                return;
+            }
+
             localStorage.setItem('alex_flix_auth', 'true');
-            localStorage.setItem('alex_flix_account_owner', username);
+            localStorage.setItem('alex_flix_account_owner', email);
+            localStorage.setItem('alex_flix_status_assinatura', dadosCliente.tipo);
             window.location.href = 'perfis.html';
         }
     </script>
