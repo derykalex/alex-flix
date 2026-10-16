@@ -16,7 +16,7 @@
 </head>
 <body class="bg-[#07080a] min-h-screen flex flex-col selection:bg-red-600 selection:text-white">
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR COM MENU DROPDOWN -->
     <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-6 md:px-12 py-4 flex items-center justify-between bg-transparent">
         <div class="flex items-center space-x-10">
             <h2 class="text-2xl md:text-3xl font-black text-red-600 tracking-wider cursor-pointer" onclick="location.href='index.html'">ALEX FLIX</h2>
@@ -33,17 +33,41 @@
                 <input type="text" id="search-input" onkeypress="handleSearch(event)" placeholder="Pesquisar títulos..." class="bg-black/65 backdrop-blur-md text-sm text-white px-4 py-2 rounded-full pl-10 focus:outline-none focus:ring-2 focus:ring-red-600 border border-gray-800 w-52 md:w-64 transition-all shadow-inner">
                 <i class="fa-solid fa-search absolute left-3.5 top-3 text-gray-400 text-xs"></i>
             </div>
-            <!-- Perfil Ativo (Clica para trocar de perfil) -->
-            <div onclick="window.location.href='perfis.html'" class="flex items-center space-x-3 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-gray-800 shadow-md cursor-pointer hover:border-gray-600 transition" title="Trocar de Perfil">
-                <div class="w-7 h-7 bg-red-600 rounded-full flex items-center justify-center font-bold text-xs text-white">A</div>
-                <span id="current-profile-name" class="text-sm font-semibold text-white hidden sm:inline">Alex</span>
+            
+            <!-- MENU SUSPENSO PROFISSIONAL DE PERFIL -->
+            <div class="relative group">
+                <div class="flex items-center space-x-3 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-gray-800 shadow-md cursor-pointer hover:border-gray-600 transition">
+                    <div class="w-7 h-7 bg-red-600 rounded-full flex items-center justify-center font-bold text-xs text-white">A</div>
+                    <span id="current-profile-name" class="text-sm font-semibold text-white hidden sm:inline">Alex</span>
+                    <i class="fa-solid fa-chevron-down text-xs text-gray-400"></i>
+                </div>
+                <div class="absolute right-0 mt-2 w-56 bg-[#111318] border border-gray-800 rounded-2xl shadow-2xl py-2 hidden group-hover:block z-50">
+                    <a href="perfis.html" class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                        <i class="fa-solid fa-user w-6 text-red-500"></i> Perfil
+                    </a>
+                    <a href="minha-lista.html" class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                        <i class="fa-solid fa-bookmark w-6 text-red-500"></i> Acompanhando
+                    </a>
+                    <a href="#" onclick="showSectionAlert('Histórico')" class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                        <i class="fa-solid fa-clock-rotate-left w-6 text-red-500"></i> Histórico
+                    </a>
+                    <a href="#" onclick="showSectionAlert('Ver depois')" class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                        <i class="fa-solid fa-clock w-6 text-red-500"></i> Ver depois
+                    </a>
+                    <div class="border-t border-gray-800 my-1"></div>
+                    <a href="#" onclick="showSectionAlert('Configurações')" class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                        <i class="fa-solid fa-gear w-6 text-red-500"></i> Configurações
+                    </a>
+                    <a href="login.html" class="flex items-center px-4 py-3 text-sm text-red-400 hover:bg-red-600/20 hover:text-red-300 transition">
+                        <i class="fa-solid fa-right-from-bracket w-6"></i> Sair da Conta
+                    </a>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow">
-        <!-- HERO BANNER -->
         <section class="relative h-[80vh] md:h-[90vh] flex items-center px-6 md:px-12 bg-cover bg-center hero-gradient" style="background-image: url('https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1800&q=85')">
             <div class="max-w-3xl z-10 mt-16">
                 <div class="flex items-center space-x-3 mb-4">
@@ -66,7 +90,6 @@
             </div>
         </section>
 
-        <!-- CARROSSÉIS -->
         <div class="pb-24">
             <section class="px-6 md:px-12 mt-12 relative">
                 <div class="flex items-center justify-between mb-5">
@@ -94,7 +117,6 @@
         </div>
     </main>
 
-    <!-- RODAPÉ -->
     <footer class="bg-[#040507] border-t border-gray-900 py-10 px-6 md:px-12 text-center text-gray-500 text-sm">
         <p class="font-bold text-red-600 text-base mb-2 tracking-widest">ALEX FLIX</p>
         <p>© 2026 Alex Flix Studios. Todos os direitos reservados.</p>
